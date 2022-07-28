@@ -1,6 +1,8 @@
 import time
 import RPi.GPIO as gpio
 
+from utils import ultrasonic
+
 gpio.setmode(gpio.BCM)
 
 (trig, echo) = (18, 24)
@@ -12,37 +14,11 @@ gpio.setup(echo, gpio.IN)
 for led in leds:
     gpio.setup(led, gpio.OUT)
 
-def get_distance() -> float:
-
-    gpio.output(trig, True)
-    time.sleep(0.00001)
-    gpio.output(trig, False)
-
-    st_pulse = time.time()
-    en_pulse = time.time()
-
-    while gpio.input(echo) == 0:
-        st_pulse = time.time()
-
-    while gpio.input(echo) == 1:
-        en_pulse = time.time()
-
-    duration = en_pulse - st_pulse
-    distance = round((duration * 17150), 2)
-
-    return distance
-
-
-print('Starting...')
-
-gpio.output(trig, False)
-print('Wait for sensor...')
-
-time.sleep(1)
+ultrasonic.initialize(trig)
 
 while True:
     
-    distance = get_distance()
+    distance = ultrasonic.get_distance(trig, echo)
     print(f'Distance = {distance}')
 
     for led in leds:
