@@ -16,10 +16,11 @@ ultrasonic.initialize(trig)
 servo.set_deg(21, 0)
 
 while True:
-
-    distance = 180 if int(ultrasonic.get_distance()) > 180 else int(ultrasonic.get_distance())
     
-    print(f'Distance = {distance}')
-    servo.set_deg(21, distance)
+    distance = ultrasonic.get_distance(trig, echo)
+    angle = 180 if int(distance) > 180 else int(ultrasonic.get_distance(distance))
+    
+    print(f'Distance = {distance}, Angle = {angle}')
+    servo.set_deg(21, angle)
 
     time.sleep(0.3)
