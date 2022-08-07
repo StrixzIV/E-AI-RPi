@@ -13,8 +13,8 @@ class UltrasonicSensor:
         self.trig_pin = trig_pin
         self.echo_pin = echo_pin
 
-        gpio.setup(self.trig, gpio.OUT)
-        gpio.setup(self.echo, gpio.IN)
+        gpio.setup(self.trig_pin, gpio.OUT)
+        gpio.setup(self.echo_pin, gpio.IN)
 
         self.initialize()
 
