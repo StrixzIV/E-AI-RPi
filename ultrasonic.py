@@ -16,7 +16,7 @@ for led in leds:
 
 while True:
     
-    distance = ultrasonic_sensor.get_distance(trig, echo)
+    distance = ultrasonic_sensor.get_distance()
     print(f'Distance = {distance}')
 
     for led in leds:
