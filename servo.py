@@ -6,21 +6,18 @@ from utils import ultrasonic, servo
 gpio.setmode(gpio.BCM)
 
 (trig, echo) = (18, 24)
-gpio.setup(21, gpio.OUT)
 
-gpio.setup(trig, gpio.OUT)
-gpio.setup(echo, gpio.IN)
+servo_motor = servo.ServoMotor(21)
+ultrasonic_sensor = ultrasonic.UltrasonicSensor(trig, echo)
 
-ultrasonic.initialize(trig)
-
-servo.set_deg(21, 0)
+servo_motor.set_zero_deg()
 
 while True:
     
-    distance = ultrasonic.get_distance(trig, echo)
-    angle = 180 if int(distance) > 180 else int(ultrasonic.get_distance(distance))
+    distance = ultrasonic_sensor.get_distance(trig, echo)
+    angle = 180 if int(distance) > 180 else int(ultrasonic_sensor.get_distance(distance))
     
     print(f'Distance = {distance}, Angle = {angle}')
-    servo.set_deg(21, angle)
+    servo_motor.set_deg(21, angle)
 
     time.sleep(0.3)
