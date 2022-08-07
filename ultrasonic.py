@@ -1,24 +1,22 @@
 import time
 import RPi.GPIO as gpio
 
-from utils import ultrasonic
+from utils.ultrasonic import UltrasonicSensor
 
 gpio.setmode(gpio.BCM)
 
 (trig, echo) = (18, 24)
 leds = [21, 20, 12, 5, 27]
 
-gpio.setup(trig, gpio.OUT)
-gpio.setup(echo, gpio.IN)
+ultrasonic_sensor = UltrasonicSensor(trig, echo)
 
 for led in leds:
     gpio.setup(led, gpio.OUT)
 
-ultrasonic.initialize(trig)
 
 while True:
     
-    distance = ultrasonic.get_distance(trig, echo)
+    distance = ultrasonic_sensor.get_distance(trig, echo)
     print(f'Distance = {distance}')
 
     for led in leds:
