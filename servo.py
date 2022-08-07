@@ -18,6 +18,6 @@ while True:
     angle = 180 if int(distance) > 180 else int(ultrasonic_sensor.get_distance())
     
     print(f'Distance = {distance}, Angle = {angle}')
-    servo_motor.set_deg(21, angle)
+    servo_motor.set_deg(angle)
 
     time.sleep(0.3)
