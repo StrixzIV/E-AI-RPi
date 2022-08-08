@@ -33,7 +33,7 @@ class UltrasonicSensor:
         time.sleep(1)
 
 
-    def get_distance(self) -> float:
+    def get_distance(self, output_digit: int = 2) -> float:
         
         '''
             Get distance from ultrasonic sensor.
@@ -53,6 +53,6 @@ class UltrasonicSensor:
             end_pulse = time.time()
 
         duration = end_pulse - start_pulse
-        distance = abs(round((duration * 17150), 2))
+        distance = abs(round((duration * 17150), output_digit))
 
         return distance
