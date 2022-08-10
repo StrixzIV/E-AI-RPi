@@ -7,7 +7,7 @@ gpio.setmode(gpio.BCM)
 
 (trig, echo) = (18, 24)
 
-servo_motor = servo.ServoMotor(21)
+servo_motor = servo.ServoMotor(12)
 ultrasonic_sensor = ultrasonic.UltrasonicSensor(trig, echo)
 
 servo_motor.set_zero_deg()
