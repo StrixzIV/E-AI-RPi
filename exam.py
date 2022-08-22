@@ -29,23 +29,22 @@ def set_servo_deg(target_deg: int) -> None:
 
 set_servo_deg(90)
 
-counter = 0
-
 led_state = True
 
 while True:
 
     state = not (True if gpio.input(btn) == 1 else False)
 
-    if state and counter < 180:
+    if state:
 
         gpio.output(led1, led_state)
         gpio.output(led2, not led_state)
 
-        set_servo_deg(counter)
-        counter += 10
+        set_servo_deg(0)
 
-        time.sleep(0.1)
+        time.sleep(0.4)
+
+        set_servo_deg(180)
 
         led_state = not led_state
         
