@@ -1,5 +1,4 @@
 import time
-import turtle
 import RPi.GPIO as gpio
 
 gpio.setmode(gpio.BCM)
