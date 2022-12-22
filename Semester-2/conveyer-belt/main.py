@@ -68,7 +68,6 @@ def red_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8]) 
             if cv2.contourArea(cnt) > 500:
                 
                 (x, y, w, h) = cv2.boundingRect(cnt)
-                print(x)
                 
                 if x in range(145, 200):
                     red_count += 1
