@@ -114,7 +114,12 @@ def belt_stop():
     gpio.output(in1, gpio.LOW)
     gpio.output(in2, gpio.LOW)
     
+
+def belt_reverse():
+    gpio.output(in1, gpio.HIGH)
+    gpio.output(in2, gpio.LOW)
     
+
 def reset_count():
     
     global yellow_count, red_count
@@ -187,11 +192,14 @@ btn10.pack(pady = 5)
 btn11 = tk.Button(right_frame, text="Stop Belt", fg='black', command=belt_stop)
 btn11.pack(pady = 5)
 
-btn12 = tk.Button(right_frame, text="Reset count", fg='black', command=reset_count)
+btn12 = tk.Button(right_frame, text="Reverse Belt", fg='black', command=belt_reverse)
 btn12.pack(pady = 5)
 
-btn13 = tk.Button(right_frame, text="Save count", fg='black', command=save_count)
+btn13 = tk.Button(right_frame, text="Reset count", fg='black', command=reset_count)
 btn13.pack(pady = 5)
+
+btn14 = tk.Button(right_frame, text="Save count", fg='black', command=save_count)
+btn14.pack(pady = 5)
 
 btn40 = tk.Button(right_frame, text="หยุดการทำงาน", fg="red", command=stop)
 btn40.pack(pady = 5)
