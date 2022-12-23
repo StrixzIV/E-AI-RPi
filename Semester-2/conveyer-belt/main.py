@@ -6,6 +6,7 @@ import datetime as dt
 import RPi.GPIO as gpio
 
 from PIL import Image, ImageTk
+from belt_utils import belt_start, belt_stop, belt_reverse
 
 gpio.setmode(gpio.BCM)
 
@@ -123,36 +124,6 @@ def stop() -> None:
     cap.release()
     window.destroy()
     
-    
-def belt_start() -> None:
-    
-    '''
-        Start the belt motor in forward direction.
-    '''
-    
-    gpio.output(in1, gpio.LOW)
-    gpio.output(in2, gpio.HIGH)
-
-
-def belt_stop() -> None:
-    
-    '''
-        Stop the belt motor from moving.
-    '''
-    
-    gpio.output(in1, gpio.LOW)
-    gpio.output(in2, gpio.LOW)
-    
-
-def belt_reverse() -> None:
-    
-    '''
-        Start the belt motor in reverse direction.
-    '''
-    
-    gpio.output(in1, gpio.HIGH)
-    gpio.output(in2, gpio.LOW)
-    
 
 def reset_count() -> None:
     
@@ -228,13 +199,13 @@ label21.pack()
 label22 = tk.Label(left_frame, textvariable=status3, bg="#000080", fg="white", font="PSL-omyim 50")
 label22.pack()
 
-btn10 = tk.Button(right_frame, text="Start Belt", fg='black', command=belt_start)
+btn10 = tk.Button(right_frame, text="Start Belt", fg='black', command= lambda: belt_start(in1, in2))
 btn10.pack(pady = 5)
 
-btn11 = tk.Button(right_frame, text="Stop Belt", fg='black', command=belt_stop)
+btn11 = tk.Button(right_frame, text="Stop Belt", fg='black', command= lambda: belt_stop(in1, in2))
 btn11.pack(pady = 5)
 
-btn12 = tk.Button(right_frame, text="Reverse Belt", fg='black', command=belt_reverse)
+btn12 = tk.Button(right_frame, text="Reverse Belt", fg='black', command= lambda: belt_reverse(in1, in2))
 btn12.pack(pady = 5)
 
 btn13 = tk.Button(right_frame, text="Reset count", fg='black', command=reset_count)
