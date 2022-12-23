@@ -25,8 +25,6 @@ cap.set(4, hcam)
 
 def yellow_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8]) -> np.ndarray[np.uint8]:
     
-    global yellow_count
-    
     lower_yellow = np.array((15, 150, 20))
     upper_yellow = np.array((35, 255, 255))
     
@@ -43,6 +41,7 @@ def yellow_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8
                 (x, y, w, h) = cv2.boundingRect(cnt)
                 
                 if x in range(145, 200):
+                    global yellow_count
                     yellow_count += 1
                     
                 cv2.rectangle(show_frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
@@ -70,6 +69,7 @@ def red_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8]) 
                 (x, y, w, h) = cv2.boundingRect(cnt)
                 
                 if x in range(145, 200):
+                    global red_count
                     red_count += 1
                     
                 cv2.rectangle(show_frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
