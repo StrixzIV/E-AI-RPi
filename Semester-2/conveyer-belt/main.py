@@ -25,6 +25,12 @@ cap.set(4, hcam)
 
 def yellow_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8]) -> np.ndarray[np.uint8]:
     
+    '''
+        Detects yellow objects in a frame and draws rectangles around them. 
+        
+        Increments a global count if objects is within a center x-coordinate range.
+    '''
+    
     lower_yellow = np.array((15, 150, 20))
     upper_yellow = np.array((35, 255, 255))
     
@@ -51,7 +57,11 @@ def yellow_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8
 
 def red_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8]) -> np.ndarray[np.uint8]:
     
-    global red_count
+    '''
+        Detects red objects in a frame and draws rectangles around them. 
+        
+        Increments a global count if objects is within a center x-coordinate range.
+    '''
     
     lower_red = np.array((0, 87, 100))
     upper_red = np.array((10, 255, 255))
@@ -77,7 +87,11 @@ def red_detector(frame: np.ndarray[np.uint8], show_frame: np.ndarray[np.uint8]) 
     return cv2.cvtColor(show_frame, cv2.COLOR_BGR2RGB)
 
 
-def show_frame():
+def show_frame() -> None:
+    
+    '''
+        Update and display a video stream to the UI.
+    '''
 
     global imgtk
     global frame
@@ -100,27 +114,51 @@ def show_frame():
     lmain.after(10, show_frame)
     
 
-def stop():
+def stop() -> None:
+    
+    '''
+        Stop the program and release all of the resources allocated.
+    '''
+    
     cap.release()
     window.destroy()
     
     
-def belt_start():
+def belt_start() -> None:
+    
+    '''
+        Start the belt motor in forward direction.
+    '''
+    
     gpio.output(in1, gpio.LOW)
     gpio.output(in2, gpio.HIGH)
 
 
-def belt_stop():
+def belt_stop() -> None:
+    
+    '''
+        Stop the belt motor from moving.
+    '''
+    
     gpio.output(in1, gpio.LOW)
     gpio.output(in2, gpio.LOW)
     
 
-def belt_reverse():
+def belt_reverse() -> None:
+    
+    '''
+        Start the belt motor in reverse direction.
+    '''
+    
     gpio.output(in1, gpio.HIGH)
     gpio.output(in2, gpio.LOW)
     
 
-def reset_count():
+def reset_count() -> None:
+    
+    '''
+        Reset the color counter.
+    '''
     
     global yellow_count, red_count
     
@@ -128,7 +166,11 @@ def reset_count():
     red_count = 0
     
     
-def save_count():
+def save_count() -> None:
+    
+    '''
+        Append counter data to the CSV file.
+    '''
     
     data = [
         dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
