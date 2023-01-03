@@ -127,6 +127,7 @@ def stop() -> None:
         Stop the program and release all of the resources allocated.
     '''
     
+    gpio.cleanup()
     cap.release()
     window.destroy()
     
