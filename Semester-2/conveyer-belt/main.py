@@ -1,3 +1,4 @@
+import os
 import cv2
 import csv
 import numpy as np
@@ -149,6 +150,15 @@ def save_count() -> None:
         yellow_count,
         red_count + yellow_count
     ]
+    
+    if not os.path.isfile('./data.csv'):
+        with open('data.csv', 'a+') as file:
+            
+            write = csv.writer(file)
+            write.writerow(['last saved', 'red', 'yellow', 'total'])
+            write.writerow(data)
+            
+            return
     
     with open('data.csv', 'a+') as file:
         write = csv.writer(file)
