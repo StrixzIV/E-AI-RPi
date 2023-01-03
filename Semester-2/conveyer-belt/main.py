@@ -100,13 +100,18 @@ def show_frame() -> None:
     global status1
 
     check, frame = cap.read()
-
-    filtered = yellow_detector(frame, frame)
-    filtered = red_detector(frame, frame)
+    
+    if is_counting:
+        filtered = yellow_detector(frame, frame)
+        filtered = red_detector(frame, frame)
+        
+    elif not is_counting:
+        filtered = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
     status1.set(f'Yellow: {yellow_count}')
     status2.set(f'Red: {red_count}')
     status3.set(f'Total: {yellow_count + red_count}')
+    status4.set(f'Counting: {is_counting}')
     
     # convert image for GUI
     img = Image.fromarray(filtered)
@@ -136,6 +141,17 @@ def reset_count() -> None:
     
     yellow_count = 0
     red_count = 0
+    
+    
+def toggle_count() -> None:
+    
+    '''
+        Toggle the color counter.
+    '''
+    
+    global is_counting
+    
+    is_counting = not is_counting
     
     
 def save_count() -> None:
@@ -170,19 +186,22 @@ window = tk.Tk()
 status1 = tk.StringVar()
 status2 = tk.StringVar()
 status3 = tk.StringVar()
+status4 = tk.StringVar()
 
-window.wm_title("Conveyer belt controller")
-window.geometry('1130x500')
-window.option_add("*font", "PSL-omyim 30")
-window.config(background="#242526")
+is_counting = False
 
-left_frame = tk.Frame(window,  width = 200,  height = 400, background="#242526")
+window.wm_title('Conveyer belt controller')
+window.geometry('1290x500')
+window.option_add('*font', 'PSL-omyim 30')
+window.config(background='#242526')
+
+left_frame = tk.Frame(window,  width = 200,  height = 400, background='#242526')
 left_frame.grid(row=0,  column=0,  padx=10,  pady=5)
 
-mid_frame = tk.Frame(window,  width=650,  height=400, background="#242526")
+mid_frame = tk.Frame(window,  width=650,  height=400, background='#242526')
 mid_frame.grid(row=0,  column=1,  padx=10,  pady=5)
 
-right_frame = tk.Frame(window,  width = 200,  height = 400, background="#242526")
+right_frame = tk.Frame(window,  width = 200,  height = 400, background='#242526')
 right_frame.grid(row=0,  column=3,  padx=10,  pady=5)
 
 gpio.setup(in1, gpio.OUT)
@@ -200,31 +219,37 @@ controller.start(55)
 lmain = tk.Label(mid_frame)
 lmain.pack(pady = 3)
 
-label20 = tk.Label(left_frame, textvariable=status1, bg="gold", fg="white", font="PSL-omyim 50")
+label200 = tk.Label(left_frame, textvariable=status4, bg='black', fg='white', font='PSL-omyim 50')
+label200.pack()
+
+label20 = tk.Label(left_frame, textvariable=status1, bg='gold', fg='white', font='PSL-omyim 50')
 label20.pack()
 
-label21 = tk.Label(left_frame, textvariable=status2, bg="red", fg="white", font="PSL-omyim 50")
+label21 = tk.Label(left_frame, textvariable=status2, bg='red', fg='white', font='PSL-omyim 50')
 label21.pack()
 
-label22 = tk.Label(left_frame, textvariable=status3, bg="#000080", fg="white", font="PSL-omyim 50")
+label22 = tk.Label(left_frame, textvariable=status3, bg='#000080', fg='white', font='PSL-omyim 50')
 label22.pack()
 
-btn10 = tk.Button(right_frame, text="Start Belt", fg='black', command= lambda: belt_start(in1, in2))
+btn10 = tk.Button(right_frame, text='Start Belt', fg='black', command= lambda: belt_start(in1, in2))
 btn10.pack(pady = 5)
 
-btn11 = tk.Button(right_frame, text="Stop Belt", fg='black', command= lambda: belt_stop(in1, in2))
+btn11 = tk.Button(right_frame, text='Stop Belt', fg='black', command= lambda: belt_stop(in1, in2))
 btn11.pack(pady = 5)
 
-btn12 = tk.Button(right_frame, text="Reverse Belt", fg='black', command= lambda: belt_reverse(in1, in2))
+btn12 = tk.Button(right_frame, text='Reverse Belt', fg='black', command= lambda: belt_reverse(in1, in2))
 btn12.pack(pady = 5)
 
-btn13 = tk.Button(right_frame, text="Reset count", fg='black', command=reset_count)
+btn13 = tk.Button(right_frame, text='Toggle count', fg='black', command=toggle_count)
 btn13.pack(pady = 5)
 
-btn14 = tk.Button(right_frame, text="Save count", fg='black', command=save_count)
+btn14 = tk.Button(right_frame, text='Reset count', fg='black', command=reset_count)
 btn14.pack(pady = 5)
 
-btn40 = tk.Button(right_frame, text="หยุดการทำงาน", fg="red", command=stop)
+btn15 = tk.Button(right_frame, text='Save count', fg='black', command=save_count)
+btn15.pack(pady = 5)
+
+btn40 = tk.Button(right_frame, text='หยุดการทำงาน', fg='red', command=stop)
 btn40.pack(pady = 5)
 
 show_frame()
