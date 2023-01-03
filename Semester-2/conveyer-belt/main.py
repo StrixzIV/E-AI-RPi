@@ -162,7 +162,7 @@ status2 = tk.StringVar()
 status3 = tk.StringVar()
 
 window.wm_title("Conveyer belt controller")
-window.geometry('1300x500')
+window.geometry('1130x500')
 window.option_add("*font", "PSL-omyim 30")
 window.config(background="#242526")
 
