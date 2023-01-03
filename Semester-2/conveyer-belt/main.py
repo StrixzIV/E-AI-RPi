@@ -102,10 +102,12 @@ def show_frame() -> None:
     check, frame = cap.read()
     
     if is_counting:
+        label00.configure(bg = '#32CD32')
         filtered = yellow_detector(frame, frame)
         filtered = red_detector(frame, frame)
         
     elif not is_counting:
+        label00.configure(bg = '#EE4B2B')
         filtered = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
     status1.set(f'Yellow: {yellow_count}')
@@ -192,18 +194,18 @@ status4 = tk.StringVar()
 is_counting = False
 
 window.wm_title('Conveyer belt controller')
-window.geometry('1290x500')
+window.geometry('1130x600')
 window.option_add('*font', 'PSL-omyim 30')
 window.config(background='#242526')
 
 left_frame = tk.Frame(window,  width = 200,  height = 400, background='#242526')
-left_frame.grid(row=0,  column=0,  padx=10,  pady=5)
+left_frame.grid(row=1,  column=0,  padx=10,  pady=5)
 
 mid_frame = tk.Frame(window,  width=650,  height=400, background='#242526')
-mid_frame.grid(row=0,  column=1,  padx=10,  pady=5)
+mid_frame.grid(row=1,  column=1,  padx=10,  pady=5)
 
 right_frame = tk.Frame(window,  width = 200,  height = 400, background='#242526')
-right_frame.grid(row=0,  column=3,  padx=10,  pady=5)
+right_frame.grid(row=1,  column=3,  padx=10,  pady=5)
 
 gpio.setup(in1, gpio.OUT)
 gpio.setup(in2, gpio.OUT)
@@ -220,8 +222,8 @@ controller.start(55)
 lmain = tk.Label(mid_frame)
 lmain.pack(pady = 3)
 
-label200 = tk.Label(left_frame, textvariable=status4, bg='black', fg='white', font='PSL-omyim 50')
-label200.pack()
+label00 = tk.Label(window, textvariable=status4, bg='#EE4B2B', fg='white', font='PSL-omyim 50')
+label00.grid(row=0,  column=1,  padx=10,  pady=5)
 
 label20 = tk.Label(left_frame, textvariable=status1, bg='gold', fg='white', font='PSL-omyim 50')
 label20.pack()
@@ -250,7 +252,7 @@ btn14.pack(pady = 5)
 btn15 = tk.Button(right_frame, text='Save count', fg='black', command=save_count)
 btn15.pack(pady = 5)
 
-btn40 = tk.Button(right_frame, text='หยุดการทำงาน', fg='red', command=stop)
+btn40 = tk.Button(right_frame, text='Exit', fg='red', command=stop)
 btn40.pack(pady = 5)
 
 show_frame()
