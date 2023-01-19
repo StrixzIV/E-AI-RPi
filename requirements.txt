@@ -1,0 +1,4 @@
+opencv-contrib-python==4.7.0.68
+Pillow==9.4.0
+numpy==1.23.4
+line-notify==0.1.4
