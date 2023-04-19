@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def process_aruco(frame: np.ndarray, aruco_dict: any, aruco_params: any) -> tuple[list[int], np.ndarray]:
+def process_aruco(frame: np.ndarray, aruco_dict: cv2.aruco.Dictionary, aruco_params: cv2.aruco.DetectorParameters) -> tuple[list[int], np.ndarray]:
 
     view_frame = frame.copy()
     (corners, ids, rejected) = cv2.aruco.detectMarkers(frame, aruco_dict, parameters = aruco_params)
