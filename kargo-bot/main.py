@@ -2,8 +2,8 @@ import cv2
 from utils.aruco import process_aruco
 
 aruco_type = cv2.aruco.DICT_5X5_100
-aruco_dict = cv2.aruco.Dictionary_get(aruco_type)
-aruco_params = cv2.aruco.DetectorParameters_create()
+aruco_dict = cv2.aruco.getPredefinedDictionary(aruco_type)
+aruco_params = cv2.aruco.DetectorParameters()
 
 cam_stream = cv2.VideoCapture(0)
 
