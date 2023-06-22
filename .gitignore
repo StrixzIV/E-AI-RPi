@@ -1,4 +1,5 @@
 *.env
+*.png
+*.jpg
+*.csv
 *__pycache__
-Semester-2/car.jpeg
-Semester-2/conveyer-belt/data.csv
