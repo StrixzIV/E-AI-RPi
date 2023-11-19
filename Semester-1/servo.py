@@ -1,7 +1,8 @@
 import time
 import RPi.GPIO as gpio
 
-from utils import ultrasonic, servo
+import utils.servo as servo
+import utils.ultrasonic as ultrasonic
 
 gpio.setmode(gpio.BCM)
 
