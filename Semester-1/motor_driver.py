@@ -23,7 +23,7 @@ controller.start(0)
 
 while True:
     
-    (state1, state2, state3) = (not bool(gpio.input(btns[0])), not bool(gpio.input(btns[1])), not bool(gpio.input(btns[2])))
+    (state1, state2, state3) = (not gpio.input(btns[0]), not gpio.input(btns[1]), not gpio.input(btns[2]))
 
     print(f'state1: {state1}, state2: {state2} state3: {state3}, speed: {base_speed}')
 

@@ -32,7 +32,7 @@ led_state = True
 
 while True:
 
-    state = not (True if gpio.input(btn) == 1 else False)
+    state = gpio.input(btn) != 1
 
     if state:
 

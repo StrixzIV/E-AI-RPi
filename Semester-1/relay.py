@@ -15,8 +15,8 @@ for relay in relays:
 
 while True:
 
-    state1 = not (True if gpio.input(btns[0]) == 1 else False)
-    state2 = not (True if gpio.input(btns[1]) == 1 else False)
+    state1 = gpio.input(btns[0]) != 1
+    state2 = gpio.input(btns[1]) != 1
 
     if state1:
         gpio.output(relays[0], False)

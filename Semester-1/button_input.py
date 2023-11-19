@@ -9,7 +9,7 @@ gpio.setup(led, gpio.OUT)
 
 while True:
 
-    state = True if gpio.input(btn) == 1 else False
+    state = gpio.input(btn) == 1
 
     if state:
         print('Pressed')
