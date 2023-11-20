@@ -29,6 +29,7 @@ while True:
         stepper_control.backward()
 
     elif state3 and not state1 and not state2:
+        
         (has_frame, frame) = cam_stream.read()
         
         if not has_frame:
@@ -45,6 +46,9 @@ while True:
         print(f'detected: n = {len(contours)}')
 
         cv2.imwrite('out.png', res)
+        
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
 cam_stream.release()
 cv2.destroyAllWindows()
