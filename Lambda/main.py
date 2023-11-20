@@ -18,9 +18,9 @@ stepper_control.setup()
 
 while True:
 
-    state1 = not bool(gpio.input(btns[0]))
-    state2 = not bool(gpio.input(btns[1]))
-    state3 = not bool(gpio.input(btns[2]))
+    state1 = not gpio.input(btns[0])
+    state2 = not gpio.input(btns[1])
+    state3 = not gpio.input(btns[2])
 
     if state1 and not state2 and not state3:
         stepper_control.forward()
